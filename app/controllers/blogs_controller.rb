@@ -25,9 +25,10 @@ class BlogsController < ApplicationController
   # POST /blogs.json
   def create
     @blog = Blog.new(blog_params)
-
+  
     respond_to do |format|
       if @blog.save
+        
         format.html { redirect_to @blog, notice: 'Blog was successfully created.' }
         format.json { render :show, status: :created, location: @blog }
       else
@@ -64,7 +65,7 @@ class BlogsController < ApplicationController
      @blog.published!
    elsif @blog.published?
       @blog.draft!
-    end
+   end
      
    redirect_to blogs_url, notice: 'Post status had been updated.'
  end
@@ -77,6 +78,6 @@ class BlogsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def blog_params
-      params.require(:blog).permit(:attribute)
+      params.require(:blog).permit(:title, :body)
     end
 end
